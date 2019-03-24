@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Projects</title>
-	<link rel="stylesheet" href="">
-</head>
-<body>
-	<h1>Projects</h1>
-
-	<ul>
-		@foreach($projects as $project)
-		<li>{{ $project->title }}</li>
-		@endforeach
-	</ul>
-	
-</body>
-</html>
+@extends('layouts.app')
+@section('content')
+	<header class="flex items-center mb-3 py-4">
+		<div class="flex justify-between items-end w-full">
+			<h2 class="mb-3 text-grey no-underline text-sm font-normal">My Projects</h2>
+			<a href="/projects/create" class="button">New Project</a>
+		</div>
+	</header>
+	<main class="lg:flex lg:flex-wrap -mx-3">
+		@forelse($projects as $project)
+			<div class="lg:w-1/3 px-3 pb-6">
+				@include('projects.card')
+			</div>
+		@empty
+			<div>No project</div>
+		@endforelse
+	</main>
+@endsection
