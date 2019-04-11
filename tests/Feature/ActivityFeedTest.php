@@ -13,7 +13,7 @@ class ActivityFeedTest extends TestCase
 
 
     /** @test */
-    public function creating_a_project_generates_activity()
+    public function creating_a_project_records_activity()
     {
         $project = ProjectFactory::create();
 
@@ -22,9 +22,8 @@ class ActivityFeedTest extends TestCase
     }
 
     /** @test */
-    public function updating_a_project_generates_activity()
+    public function updating_a_project_records_activity()
     {
-        $this->withoutExceptionHandling();
         $project = ProjectFactory::create();
 
         $project->update(['title' => 'changed']);
@@ -32,5 +31,37 @@ class ActivityFeedTest extends TestCase
 
         $this->assertEquals('updated', $project->activities->last()->description);
     }
+
+
+    /** @test */
+    public function creating_a_new_task_records_project_activity()
+    {
+        $project = ProjectFactory::create();
+
+        $project->addTask('new task');
+        $this->assertCount(2, $project->activities);
+
+        $this->assertEquals('created_task', $project->activities->last()->description);
+
+    }
+
+
+    /** @test */
+    public function completing_a_new_task_records_project_activity()
+    {
+        $project = ProjectFactory::withTasks(1)->create();
+
+        $this->actingAs($project->owner)
+             ->patch($project->tasks->first()->path(), [
+                'body' => 'updated',
+                'completed' => true
+             ]);
+
+        $this->assertCount(3, $project->activities);
+
+        $this->assertEquals('completed_task', $project->activities->last()->description);
+    }
+    
+    
     
 }

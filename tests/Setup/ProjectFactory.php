@@ -9,7 +9,7 @@ use App\Project;
 class ProjectFactory
 {
     
-    protected $tasksCount;
+    protected $tasksCount = 0;
     protected $user;
     
     public function withTasks($count = 0)
@@ -32,7 +32,7 @@ class ProjectFactory
             'owner_id' => $this->user ?? factory(User::class)
         ]);
 
-        factory(Task::class)->create([
+        factory(Task::class, $this->tasksCount)->create([
             'project_id' => $project->id
         ]);
 

@@ -19,9 +19,6 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function tasks()
     {
         return $this->hasMany(Task::class);
@@ -35,5 +32,12 @@ class Project extends Model
     public function activities()
     {
         return $this->hasMany(Activity::class);
+    }
+
+    public function recordActivity($type){
+        $this->activities()->create([
+            'project_id' => $this->id,
+            'description' => $type
+        ]);
     }
 }
