@@ -1,1 +1,1 @@
-a task is created
+You created: "{{$activity->subject->body}}"

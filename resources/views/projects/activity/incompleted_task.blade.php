@@ -1,1 +1,1 @@
-a task is incompleted
+"{{$activity->subject->body}}" set to incompleted
