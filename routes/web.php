@@ -16,14 +16,12 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/projects', 'projectsController@index');
-    Route::get('/projects/create', 'projectsController@create');
-    Route::get('/projects/{project}', 'projectsController@show');
-    Route::post('/projects', 'projectsController@store');
-    Route::get('/projects/{project}/edit', 'projectsController@edit');
-    Route::patch('/projects/{project}', 'projectsController@update');
+    Route::resource('projects', 'projectsController');
+
     Route::post('/projects/{project}/tasks', 'projectTasksController@store');
     Route::patch('/projects/{project}/tasks/{task}', 'projectTasksController@update');
+
+
     Route::get('/home', 'HomeController@index')->name('home');
 });
 
