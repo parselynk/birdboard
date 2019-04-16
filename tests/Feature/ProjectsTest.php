@@ -54,9 +54,8 @@ class ManageProjectsTest extends TestCase
     public function a_user_can_update_a_project()
     {
 
+        $this->withoutExceptionHandling();
         $project = ProjectFactory::create();
-
-
         $response = $this->actingAs($project->owner)->patch($project->path(), 
             $attributes = ['title' => 'changed', 
             'description' => 'changed', 

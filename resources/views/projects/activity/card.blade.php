@@ -5,6 +5,6 @@
 				@include("projects.activity.{$activity->description}")
 				<span class="text-grey">{{$activity->created_at->diffForHumans(null, true)}}</span>
 			</li>
-	@endforeach
+		@endforeach
 	</ul>
 </div>

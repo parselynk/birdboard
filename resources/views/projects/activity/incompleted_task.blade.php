@@ -1,1 +1,1 @@
-"{{$activity->subject->body}}" set to incompleted
+{{ $activity->user->name }}  set "{{$activity->subject->body}}" as incompleted
