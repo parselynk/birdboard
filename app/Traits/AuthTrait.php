@@ -1,18 +1,21 @@
 <?php
 namespace App\Traits;
 
+use App\User;
+
 trait AuthTrait
 {
-    public function authorizeUser()
+    public function authorizeUser(User $user = null)
     {
-        $user = $this->createUser();
-        $this->actingAs($user);
+        
+        $newUser = $user ?: $this->createUser();
+        $this->actingAs($newUser);
 
-        return $user;
+        return $newUser;
     }
 
     public function createUser()
     {
-        return factory('App\User')->create();
+        return factory(User::class)->create();
     }
 }
